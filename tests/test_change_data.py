@@ -11,6 +11,7 @@ class TestChangeData:
         data = {"name": new_name}
         response = requests.patch(url, headers=headers, json=data)
         assert response.status_code == 200
+        assert 'true' in response.text
 
     def test_login_user_change_email(self, token):
         user_token = token
@@ -20,6 +21,7 @@ class TestChangeData:
         data = {"email": new_email}
         response = requests.patch(url, headers=headers, json=data)
         assert response.status_code == 200
+        assert 'true' in response.text
 
     def test_login_user_change_password(self, token):
         user_token = token
@@ -29,6 +31,7 @@ class TestChangeData:
         data = {"password": new_password}
         response = requests.patch(url, headers=headers, json=data)
         assert response.status_code == 200
+        assert 'true' in response.text
 
     def test_user_change_data_without_login(self, user):
         url = 'https://stellarburgers.nomoreparties.site/api/auth/register'
@@ -38,3 +41,4 @@ class TestChangeData:
         new_data = {"email": "boriska@ya.ru", "password": 'Antalia', "name": 'Boris'}
         response = requests.patch(url_2, json=new_data)
         assert response.status_code == 401
+        assert 'You should be authorised' in response.text

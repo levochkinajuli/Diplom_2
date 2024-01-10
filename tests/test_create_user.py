@@ -8,6 +8,7 @@ class TestCreateUser:
         data = user
         response = requests.post(url, json=data)
         assert response.status_code == 200
+        assert 'true' in response.text
 
     def test_create_the_same_user(self, user):
         url = 'https://stellarburgers.nomoreparties.site/api/auth/register'

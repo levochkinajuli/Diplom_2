@@ -31,9 +31,7 @@ def user():
     if token:
         delete_url = 'https://stellarburgers.nomoreparties.site/api/auth/user'
         headers = {'Authorization': token}
-        delete_response = requests.delete(delete_url, headers=headers)
-
-        assert delete_response.status_code == 202
+        requests.delete(delete_url, headers=headers)
 
 
 @pytest.fixture(scope="function")
@@ -51,14 +49,10 @@ def token():
     data = {"email": email, "password": password, "name": name}
     response = requests.post(url, json=data)
 
-    assert response.status_code == 200
-
     token = response.json().get("accessToken")
 
     yield token
 
     delete_url = 'https://stellarburgers.nomoreparties.site/api/auth/user'
     headers = {'Authorization': token}
-    delete_response = requests.delete(delete_url, headers=headers)
-
-    assert delete_response.status_code == 202
+    requests.delete(delete_url, headers=headers)

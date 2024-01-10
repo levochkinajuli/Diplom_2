@@ -16,11 +16,13 @@ class TestGetOrders:
         orders_count = response.json().get("orders")
         assert response.status_code == 200
         assert len(orders_count) == 1
+        assert 'true' in response.text
 
     def test_get_order_not_authorized(self):
         url = 'https://stellarburgers.nomoreparties.site/api/orders'
         response = requests.get(url)
         assert response.status_code == 401
+        assert 'You should be authorised' in response.text
 
     def test_get_all_orders(self):
         url = 'https://stellarburgers.nomoreparties.site/api/orders/all'
